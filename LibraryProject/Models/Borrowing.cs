@@ -18,8 +18,12 @@ namespace LibraryProject.Models
         public DateTime BorrowingDate { get; set; }
         [Required]
         public DateTime DueDate { get; set; }
+
+        public DateTime? ActualReturnDate { get; set; }
+
+        public double? PenalityAmount { get; set; }
         public Book? Book{ get; set; }
-        public Return? Return{ get; set; }
+        
 
 
 
