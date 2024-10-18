@@ -4,6 +4,7 @@ using LibraryProject.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LibraryProject.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    partial class ApplicationDBContextModelSnapshot : ModelSnapshot
+    [Migration("20241018185740_MigrationOfModels")]
+    partial class MigrationOfModels
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -102,6 +105,10 @@ namespace LibraryProject.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("KindId")
                         .HasColumnType("int");
 
@@ -142,9 +149,6 @@ namespace LibraryProject.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime?>("ActualReturnDate")
-                        .HasColumnType("datetime2");
-
                     b.Property<int>("BookId")
                         .HasColumnType("int");
 
@@ -153,9 +157,6 @@ namespace LibraryProject.Migrations
 
                     b.Property<DateTime>("DueDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<double?>("PenalityAmount")
-                        .HasColumnType("float");
 
                     b.Property<string>("UserId")
                         .IsRequired()
@@ -183,6 +184,58 @@ namespace LibraryProject.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Kinds");
+                });
+
+            modelBuilder.Entity("LibraryProject.Models.Penality", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<double>("Amount")
+                        .HasColumnType("float");
+
+                    b.Property<int>("ReturnId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ReturnId")
+                        .IsUnique();
+
+                    b.ToTable("Penalities");
+                });
+
+            modelBuilder.Entity("LibraryProject.Models.Return", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("ActualReturnDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("BorrowingId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BorrowingId")
+                        .IsUnique();
+
+                    b.ToTable("Returns");
                 });
 
             modelBuilder.Entity("LibraryProject.Models.test", b =>
@@ -365,6 +418,28 @@ namespace LibraryProject.Migrations
                     b.Navigation("Book");
                 });
 
+            modelBuilder.Entity("LibraryProject.Models.Penality", b =>
+                {
+                    b.HasOne("LibraryProject.Models.Return", "Return")
+                        .WithOne("Penality")
+                        .HasForeignKey("LibraryProject.Models.Penality", "ReturnId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Return");
+                });
+
+            modelBuilder.Entity("LibraryProject.Models.Return", b =>
+                {
+                    b.HasOne("LibraryProject.Models.Borrowing", "Borrowing")
+                        .WithOne("Return")
+                        .HasForeignKey("LibraryProject.Models.Return", "BorrowingId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Borrowing");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -426,9 +501,19 @@ namespace LibraryProject.Migrations
                     b.Navigation("BookList");
                 });
 
+            modelBuilder.Entity("LibraryProject.Models.Borrowing", b =>
+                {
+                    b.Navigation("Return");
+                });
+
             modelBuilder.Entity("LibraryProject.Models.Kind", b =>
                 {
                     b.Navigation("BookList");
+                });
+
+            modelBuilder.Entity("LibraryProject.Models.Return", b =>
+                {
+                    b.Navigation("Penality");
                 });
 #pragma warning restore 612, 618
         }
