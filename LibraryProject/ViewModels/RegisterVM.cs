@@ -5,7 +5,7 @@ namespace LibraryProject.ViewModels
     public class RegisterVM
     {
         public string Username { get; set; }
-
+        //[RegularExpression(@"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.^[a-zA-Z]")
         public string Email { get; set; }
         [DataType(DataType.Password)]
 

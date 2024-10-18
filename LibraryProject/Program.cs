@@ -1,5 +1,7 @@
 using LibraryProject.Models;
 using LibraryProject.Repositories;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.Build.Framework;
 using Microsoft.EntityFrameworkCore;
 
 namespace LibraryProject
@@ -15,6 +17,12 @@ namespace LibraryProject
             builder.Services.AddScoped<ITestRepo, TestRepo>();
             builder.Services.AddDbContext<ApplicationDBContext>(options => options.UseSqlServer(builder.Configuration
                 .GetConnectionString("db")));
+            builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
+            {
+                options.Password.RequiredLength = 4;
+
+            }).
+                AddEntityFrameworkStores<ApplicationDBContext>();
 
             var app = builder.Build();
 
@@ -30,6 +38,7 @@ namespace LibraryProject
             app.UseStaticFiles();
 
             app.UseRouting();
+            app.UseAuthentication();
 
             app.UseAuthorization();
 
