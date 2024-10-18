@@ -5,7 +5,14 @@ namespace LibraryProject.Models
 {
     public class ApplicationDBContext : IdentityDbContext<ApplicationUser>
     {
-        public DbSet<test> tests {  get; set; }
+        public DbSet<test> tests { get; set; }
+        public DbSet<Book> Books { get; set; }
+        public DbSet<Kind> Kinds { get; set; }
+        public DbSet<BookStatus> BookStatuses { get; set; }
+        public DbSet<Borrowing> Borrowings { get; set; }
+        public DbSet<Return> Returns { get; set; }
+        public DbSet<Penality> Penalities { get; set; }
+
         public ApplicationDBContext():base()
         {}
         public ApplicationDBContext(DbContextOptions options):base(options) 
