@@ -1,0 +1,31 @@
+﻿@model List<Borrowing>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<table class="table table-bordered table-hover">
+    <tr>
+        <td>
+            bookId
+        </td>
+        <td>
+            userId
+        </td>
+    </tr>
+    @foreach(var item in Model)
+    {
+        <tr>
+            <td>
+
+            @item.BookId
+            </td>      
+            <td>
+
+            @item.ApplicationUserId
+            </td>
+        </tr>
+    }
+</table>
+
