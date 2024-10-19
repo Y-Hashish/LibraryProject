@@ -15,10 +15,10 @@ namespace LibraryProject.Models
         {}
         public ApplicationDBContext(DbContextOptions options):base(options) 
         {}
-        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        //{
-        //    optionsBuilder.UseSqlServer("Data Source=DESKTOP-9856E0J;Initial Catalog=LIB_PROJ;Integrated Security=True;Encrypt=False;Trust Server Certificate=True");
-        //    base.OnConfiguring(optionsBuilder);
-        //}
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlServer("Data Source=SAMAR;Initial Catalog=LIB_PROJ;Integrated Security=True;Encrypt=False;Trust Server Certificate=True");
+            base.OnConfiguring(optionsBuilder);
+        }
     }
 }
