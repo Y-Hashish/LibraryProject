@@ -80,7 +80,7 @@ namespace LibraryProject.Controllers
         public async Task<IActionResult> signout()
         {
             await sign.SignOutAsync();
-            return View("Login");
+            return RedirectToAction("login");
         }
     }
 }

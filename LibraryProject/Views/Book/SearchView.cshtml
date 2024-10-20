@@ -1,0 +1,41 @@
+﻿
+
+@if (ViewBag.Books != null)
+{
+    <h3>Books by Author <strong> @ViewData["AuthorName"] </strong> </h3>
+  
+        <table class="table table-bordered table-hover">
+    <tr>
+        <th>Book Id</th>
+         <th>Book Title</th>
+    </tr>
+
+        @foreach (var book in ViewBag.Books)
+        {
+
+            <tr>
+                <td>@book.Id</td>
+                <td>@book.Title</td>
+                <td> <a href="/Book/Edit/@book.Id"> Edit</a></td>
+                <td>
+                <td>
+                   
+                    <form asp-action="Delete" asp-controller="Book" method="post">
+                        <input type="hidden" name="id" value="@book.Id" />
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </td>
+
+            </tr>
+        }
+        </table>
+    
+}
+else if (ViewBag.Message != null)
+{
+    <p style="color:darkred ; font-size:30px "> <strong>@ViewBag.Message</strong></p>
+}
+
+  <button class="btn btn-dark ">
+    <a style="font-style:unset ; color:white" href="/Book/AllBooks">Back to list</a>
+  </button>
