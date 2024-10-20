@@ -10,12 +10,12 @@ namespace LibraryProject.Controllers
 	{
 		 ApplicationDBContext context = new ApplicationDBContext();
       
-        public IActionResult AllBooks()
+		public IActionResult AllBooks()
 		{
-
-            List<Book> books = context.Books.ToList();
+		
+			List<Book> books = context.Books.ToList();
 			ViewData["books"] = books;
-            return View("BookView", books);
+			return View("BookView", books);
 		}
 		public IActionResult Add()
 		{
