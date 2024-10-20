@@ -17,7 +17,20 @@
 		<input id="Author" name="Author" value="@Model.Author" class="form form-control" />
 		<div>
 		<label>StatusId</label>
-		<input id="StatusId" name="StatusId" value="@Model.StatusId" class="form form-control" />
+		@* <input id="StatusId" name="StatusId" value="@Model.StatusId" class="form form-control" /> *@
+		<select asp-for="StatusId" class="form form-control">
+			
+			@if(Model.StatusId == 1)
+			{
+				<option value="1" selected>Available</option>
+				<option value="2">Not Available</option>
+			}
+			else
+			{
+				<option value="1" >Available</option>
+				<option value="2" selected>Not Available</option>
+			}
+		</select>
 	</div>
 		<input type="submit" action="save" class="btn btn-success"/>
 	 

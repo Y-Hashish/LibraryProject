@@ -1,4 +1,5 @@
 ﻿using LibraryProject.Models;
+using LibraryProject.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
@@ -9,12 +10,12 @@ namespace LibraryProject.Controllers
 	public class BookController : Controller
 	{
 		 ApplicationDBContext context ;
-        public BookController(ApplicationDBContext _context)
-        {
+		public BookController(ApplicationDBContext _context)
+		{
 			context = _context;
-        }
+		}
 
-        public IActionResult AllBooks()
+		public IActionResult AllBooks()
 		{
 		
 			List<Book> books = context.Books.ToList();
@@ -69,7 +70,7 @@ namespace LibraryProject.Controllers
 		}
 
 
-		public IActionResult Delete(Book book, int id)
+		public async Task< IActionResult> Delete(Book book, int id)
 		{
 			Book deletedBook = context.Books.FirstOrDefault(i => i.Id == id);
 			context.Books.Remove(deletedBook);
@@ -83,11 +84,13 @@ namespace LibraryProject.Controllers
 		public IActionResult Search(string author)
 		{
 
-            List<Book> bookAuthor = context.Books.Where(b => b.Author == author).ToList();
+			List<Book> bookAuthor = context.Books.Where(b => b.Author.Contains(author)).ToList();
+			//List <Book> b = context.Books.Contains()
             if (bookAuthor.Any())
             {
+				ViewBag.Author = author;
 				ViewData["AuthorName"] = $"{author}";
-                ViewBag.Books = bookAuthor;
+            
 				return View("SearchView",bookAuthor);
             }
             else
