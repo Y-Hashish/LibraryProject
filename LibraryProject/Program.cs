@@ -24,6 +24,8 @@ namespace LibraryProject
 
             }).
                 AddEntityFrameworkStores<ApplicationDBContext>();
+            //builder.Services.AddScoped<IBorrowRepo, BorrowRepo>();
+            builder.Services.AddScoped<IBookRepo, BookRepo>();
 
             var app = builder.Build();
 

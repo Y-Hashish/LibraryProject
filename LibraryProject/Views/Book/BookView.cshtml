@@ -1,4 +1,53 @@
-﻿@model List<Book>
+﻿@* @model List<Book>
+
+
+@{
+	ViewData["Title"] = "ViewBook";
+}
+
+<form action="/Book/search" class="form form-control">
+	<label>
+		Search your Book
+	</label>
+	<input type="text" id="Author" name="Author" placeholder="Enter the name of the Auther " />
+	<button type="submit" class="btn btn-primary"> Search </button>
+
+</form>
+<table class="table table-bordered table-hover">
+	<tr>
+		<th>Id</th>
+		<th>Title</th>
+		<th>Auther</th>
+	</tr>
+	@foreach(var item in Model )
+	{
+		<tr>
+			<td>@item.Id</td>
+			<td>@item.Title</td>
+			<td>@item.Author</td>
+			<td> <a href="/Book/Edit/@item.Id"> Edit</a></td>
+			<td>
+			<td>
+			
+				<form asp-action="Delete" asp-controller="Book" method="post">
+					<input type="hidden" name="id" value="@item.Id" />
+					<button type="submit" class="btn btn-danger">Delete</button>
+				</form>
+			</td>
+
+		</tr>
+	}
+</table>
+
+<button class="btn btn-dark "><a style="font-style:unset ; color:white" href="/Book/Add"> Add New Book</a></button>
+
+
+ *@
+
+
+
+
+@model List<Book>
 
 
 @{
@@ -55,5 +104,3 @@
 </table>
 
 <button class="btn btn-dark "><a style="font-style:unset ; color:white" href="/Book/Add"> Add New Book</a></button>
-
-

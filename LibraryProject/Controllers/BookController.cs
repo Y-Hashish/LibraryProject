@@ -9,16 +9,16 @@ namespace LibraryProject.Controllers
 {
 	public class BookController : Controller
 	{
-		 ApplicationDBContext context ;
-		public BookController(ApplicationDBContext _context)
-		{
-			context = _context;
-		}
+		IBookRepo bookRepository;
+        public BookController(IBookRepo _context)
+        {
+			bookRepository = _context;
+        }
 
-		public IActionResult AllBooks()
+        public IActionResult AllBooks()
 		{
 		
-			List<Book> books = context.Books.ToList();
+			List<Book> books = bookRepository.GetAll();
 			ViewData["books"] = books;
 			return View("BookView", books);
 		}
@@ -31,20 +31,19 @@ namespace LibraryProject.Controllers
 		{
 			if (Newbook.Title != null)
 			{
-			context.Books.Add(Newbook);
-			context.SaveChanges();
+			bookRepository.Add(Newbook);
+			bookRepository.Save();
             return RedirectToAction("AllBooks");
 			}
-			else
-			{
-				return View("AddView" , Newbook);
-			}
+			
+		    return View("AddView" , Newbook);
+			
 		;
 		}
 	
 		public IActionResult Edit(int id)
 		{
-			Book book = context.Books.FirstOrDefault(i => i.Id == id);
+			Book book = bookRepository.GetById(id);
 			return View("EditView" ,book);
 		}
 
@@ -53,28 +52,26 @@ namespace LibraryProject.Controllers
 		{
 			if (EditedBook.Title != null)
 			{
-				Book bookEdit = context.Books.FirstOrDefault(i => i.Id == id);
+				Book bookEdit = bookRepository.GetById(id);
 				bookEdit.Title = EditedBook.Title;
 				bookEdit.Author = EditedBook.Author;
 				bookEdit.StatusId = EditedBook.StatusId;
-				context.SaveChanges();
+			    bookRepository.Save();
 				return RedirectToAction("AllBooks");
 
 			}
 
-			else
-			{
 				return View("EditView", EditedBook);
-			}
+			
 
 		}
 
 
-		public async Task< IActionResult> Delete(Book book, int id)
-		{
-			Book deletedBook = context.Books.FirstOrDefault(i => i.Id == id);
-			context.Books.Remove(deletedBook);
-			context.SaveChanges();
+        //public IActionResult Delete(Book book, int id)
+        public async Task<IActionResult> Delete(Book book, int id)
+        {
+			bookRepository.Delete(id);
+			bookRepository.Save();
 			return RedirectToAction("AllBooks");
 		}
 
@@ -84,22 +81,20 @@ namespace LibraryProject.Controllers
 		public IActionResult Search(string author)
 		{
 
-			List<Book> bookAuthor = context.Books.Where(b => b.Author.Contains(author)).ToList();
-			//List <Book> b = context.Books.Contains()
+            List<Book> bookAuthor = bookRepository.Search(author);
             if (bookAuthor.Any())
             {
-				ViewBag.Author = author;
 				ViewData["AuthorName"] = $"{author}";
-            
+                ViewBag.Books = bookAuthor;
 				return View("SearchView",bookAuthor);
             }
-            else
-            {
+            
+           
                 ViewBag.Message = $"No books found by this author {author}";
                 return View("SearchView", ViewBag.Message);
 
-            }
-            return View();
+            
+            //return View();
 
         }
 
