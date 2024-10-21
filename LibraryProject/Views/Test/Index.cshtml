@@ -1,0 +1,15 @@
+﻿@model List<test>
+
+<table class="table table-hover table-bordered">
+    <tr>
+        <td>Id</td>
+        <td>Name</td>
+    </tr>
+    @foreach(var item in Model)
+    {
+        <tr>
+            <td>@item.id</td>
+            <td>@item.name</td>
+        </tr>
+    }
+</table>

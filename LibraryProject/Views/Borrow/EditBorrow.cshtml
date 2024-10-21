@@ -1,0 +1,122 @@
+﻿@model Borrowing
+@{
+    ViewData["Title"] = "EditBorrow";
+    SelectList BookOptions = new SelectList(ViewBag.Books, "Id", "Title");
+    SelectList UserOptions = new SelectList(ViewBag.Users, "Id", "UserName");
+}
+
+ @* <h1>EditBorrow</h1>
+
+ <form method="post" asp-action="SaveEdit" asp-controller="Borrow" asp-route-id="@Model.Id">
+     <div>
+       
+         <label asp-for="BookId"></label>
+         <select class="form form-control"
+                 asp-for="BookId"
+                 asp-items="BookOptions">
+             <option value="0">---Select Book---</option>
+         </select>
+     </div>
+
+     <div>
+        
+         <label asp-for="ApplicationUserId"></label>
+         <select class="form form-control"
+                 asp-for="ApplicationUserId"
+                 asp-items="UserOptions">
+             <option value="0">---Select User---</option>
+         </select>
+     </div>
+
+     <div>
+         <label asp-for="BorrowingDate"></label>
+         <input class="form-check form-control" asp-for="BorrowingDate" />
+     </div>
+
+     <div>
+         <label asp-for="DueDate"></label>
+         <input class="form-check form-control" asp-for="DueDate" />
+     </div>
+
+     <div>
+         <label asp-for="ActualReturnDate"></label>
+         <input class="form-check form-control" asp-for="ActualReturnDate" />
+     </div>
+
+     <div>
+         <label asp-for="PenalityAmount"></label>
+         <input class="form-check form-control" asp-for="PenalityAmount" />
+     </div>
+
+     <input type="submit" value="Save-Edits" class="btn btn-success" />
+
+
+ </form>
+ <a asp-action="AllBorrowings" asp-controller="Borrow">Back</a> *@.
+
+<div class="border-0 card shadow my-4">
+    <div class="card-header bg-secondary bg-gradient ml-0 py-3">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h2 class="text-white py-2">Edit Borrow</h2>
+            </div>
+        </div>
+    </div>
+    <div class="card-body p-4">
+
+
+        <form method="post" asp-action="SaveEdit" asp-controller="Borrow" asp-route-id="@Model.Id">
+            <div>
+
+                <label asp-for="BookId"></label>
+                <select class="form form-control"
+                        asp-for="BookId"
+                        asp-items="BookOptions">
+                    <option value="0">---Select Book---</option>
+                </select>
+            </div>
+
+            <div>
+
+                <label asp-for="ApplicationUserId"></label>
+                <select class="form form-control"
+                        asp-for="ApplicationUserId"
+                        asp-items="UserOptions">
+                    <option value="0">---Select User---</option>
+                </select>
+            </div>
+
+            <div>
+                <label asp-for="BorrowingDate"></label>
+                <input class="form-check form-control" asp-for="BorrowingDate" />
+            </div>
+
+            <div>
+                <label asp-for="DueDate"></label>
+                <input class="form-check form-control" asp-for="DueDate" />
+            </div>
+
+            <div>
+                <label asp-for="ActualReturnDate"></label>
+                <input class="form-check form-control" asp-for="ActualReturnDate" />
+            </div>
+
+            <div>
+                <label asp-for="PenalityAmount"></label>
+                <input class="form-check form-control" asp-for="PenalityAmount" />
+            </div>
+            <div class="row">
+                <div class="col-6 col-md-3">
+                    <button type="submit" class="btn btn-primary form-control">Save Edits</button>
+                </div>
+                <div class="col-6 col-md-3">
+                    <a asp-controller="Borrow" asp-action="AllBorrowings" class="btn btn-secondary border form-control">
+                        Back
+                    </a>
+
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>

@@ -1,0 +1,32 @@
+﻿@model List<Book>
+@{
+    ViewData["Title"] = "History";
+}
+
+<h2 class="text-primary">History</h2>
+
+<table class="table table-bordered table-striped">
+    <tr>
+        <th>Title </th>
+        <th>Auther</th>
+        <th>kind  </th>
+    </tr>
+    @foreach(var item in Model)
+    {
+        <tr>
+            <td>@item.Title</td>
+            <td>@item.Author</td>
+            
+                @foreach(var i in ViewBag.kind)
+                {
+                    
+                    if (item.KindId== i.Id)
+                    {
+                       <td>@i.Name</td> 
+                    }
+                }              
+        </tr>
+    }
+
+</table>
+

@@ -1,0 +1,42 @@
+﻿
+@{
+    ViewData["Title"] = "Edit";
+}
+@model KindVM
+<div class="border-0 card shadow my-4">
+    <div class="card-header bg-secondary bg-gradient ml-0 py-3">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h2 class="text-white py-2">Edit Kind</h2>
+            </div>
+        </div>
+    </div>
+<div class="card-body p-4">
+<form asp-action="Edit">
+        <input asp-for="Id" hidden />
+        <div class="mb-3 row p-1">
+            <label class="p-0">Kind Name</label>
+            <input type="text" class="form-control" asp-for="@Model.Name" />
+            <span class="text-danger" asp-validation-for="@Model.Name"></span>
+        </div>
+        <div class="row">
+            <div class="col-6 col-md-3">
+                <button type="submit" class="btn btn-primary form-control">Update</button>
+            </div>
+            <div class="col-6 col-md-3">
+                <a asp-controller="Kind" asp-action="index" class="btn btn-secondary border form-control">
+                    Back to List
+                </a>
+
+            </div>
+        </div>
+
+      </form>
+    </div>
+</div>
+@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial.cshtml" />
+    }
+}
+
