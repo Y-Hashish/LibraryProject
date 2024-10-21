@@ -1,0 +1,36 @@
+﻿@model List<Borrowing>
+@{
+    ViewData["Title"] = "AllBorrowings";
+}
+
+<h1>AllBorrowings</h1>
+<a asp-action="CreateBorrow" asp-controller="Borrow" class="btn btn-success">New</a>
+<table class="table table-bordered table-hover">
+    <tr>
+        <th>BorrowId</th>
+        <th>BookId</th>
+        <th>UserName</th>
+        <th>Borrowing-Date</th>
+        <th>DueDate</th>
+        <th>ActualReturnDate</th>
+        <th>Penality</th>
+    </tr>
+
+    @foreach(var item in Model)
+    {
+        <tr>
+            <td>@item.Id</td>
+            <td>@item.BookId</td>
+            <td>@item.ApplicationUser.UserName</td>
+            <td>@item.BorrowingDate</td>
+            <td>@item.DueDate</td>
+            <td>@item.ActualReturnDate</td>
+            <td>@item.PenalityAmount</td>
+            <td>
+                <a href="/Borrow/EditBorrow/@item.Id">Edit</a>
+                 <a href="/Borrow/DeleteBorrow/@item.Id" class="btn btn-danger">Delete</a>
+                 @* <button type="submit" class="btn btn-danger">Delete</button> *@
+            </td>
+        </tr>
+    }
+</table>
