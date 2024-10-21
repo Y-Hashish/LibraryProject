@@ -8,19 +8,28 @@ namespace LibraryProject.Controllers
 {
 	public class BookController : Controller
 	{
-		 ApplicationDBContext context = new ApplicationDBContext();
-      
-		public IActionResult AllBooks()
+		 ApplicationDBContext context ;
+        public BookController(ApplicationDBContext _context)
+        {
+			context = _context;
+        }
+
+        public IActionResult AllBooks()
 		{
 		
-			List<Book> books = context.Books.ToList();
+			List<Book> books = context.Books
+            .Include(b => b.Kind).ToList();	
 			ViewData["books"] = books;
 			return View("BookView", books);
 		}
+
+
 		public IActionResult Add()
 		{
+			
 			return View("AddView");
 		}
+
 
 		public IActionResult SaveAdd(Book Newbook)
 		{
@@ -37,11 +46,13 @@ namespace LibraryProject.Controllers
 		;
 		}
 	
+
 		public IActionResult Edit(int id)
 		{
 			Book book = context.Books.FirstOrDefault(i => i.Id == id);
 			return View("EditView" ,book);
 		}
+
 
 		[HttpPost]
 	public IActionResult SaveEdit(Book EditedBook , int id)
@@ -65,6 +76,7 @@ namespace LibraryProject.Controllers
 		}
 
 
+
 		public IActionResult Delete(Book book, int id)
 		{
 			Book deletedBook = context.Books.FirstOrDefault(i => i.Id == id);
@@ -76,19 +88,27 @@ namespace LibraryProject.Controllers
 
 
 
-		public IActionResult Search(string author)
+		public IActionResult Search(string input)
 		{
 
-            List<Book> bookAuthor = context.Books.Where(b => b.Author == author).ToList();
+            List<Book> bookAuthor = context.Books.Where(b => b.Author.Contains(input)).Include(b => b.Kind).ToList();
+			List<Book> booktitle = context.Books.Where(b => b.Title.Contains(input)).Include(b => b.Kind).ToList();
+
             if (bookAuthor.Any())
             {
-				ViewData["AuthorName"] = $"{author}";
-                ViewBag.Books = bookAuthor;
+				ViewData["AuthorName"] = $"{input}";
+                ViewBag.BooksAuthor = bookAuthor;
 				return View("SearchView",bookAuthor);
             }
+			else if (booktitle.Any())
+			{
+				ViewData["TitleName"] = $"{input}";
+				ViewBag.Bookstitle = booktitle;
+				return View("SearchView", booktitle);
+			}
             else
             {
-                ViewBag.Message = $"No books found by this author {author}";
+                ViewBag.Message = $"No books found by this author {input}";
                 return View("SearchView", ViewBag.Message);
 
             }

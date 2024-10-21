@@ -15,6 +15,7 @@ namespace LibraryProject
             // Add services to the container.
             builder.Services.AddControllersWithViews();
             builder.Services.AddScoped<ITestRepo, TestRepo>();
+            builder.Services.AddScoped<IHistoryRepo, HistoryRepo>();
             builder.Services.AddDbContext<ApplicationDBContext>(options => options.UseSqlServer(builder.Configuration
                 .GetConnectionString("db")));
             builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>

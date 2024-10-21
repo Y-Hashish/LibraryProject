@@ -5,11 +5,12 @@
 	ViewData["Title"] = "ViewBook";
 }
 
+
 <form action="/Book/search" class="form form-control">
 	<label>
 		Search your Book
 	</label>
-	<input type="text" id="Author" name="Author" placeholder="Enter the name of the Auther " />
+	<input type="text" id="input" name="input" placeholder="Enter your search " />
 	<button type="submit" class="btn btn-primary"> Search </button>
 
 </form>
@@ -18,6 +19,10 @@
 		<th>Id</th>
 		<th>Title</th>
 		<th>Auther</th>
+		<th>Status Id</th>
+		<th>Kind </th>
+		<th colspan="2"> Actions </th>
+		
 	</tr>
 	@foreach(var item in Model )
 	{
@@ -25,8 +30,20 @@
 			<td>@item.Id</td>
 			<td>@item.Title</td>
 			<td>@item.Author</td>
-			<td> <a href="/Book/Edit/@item.Id"> Edit</a></td>
+			@if (item.StatusId == 2)
+			{
+				<td style="background-color:red">Not Available</td>
+			}
+			else if (item.StatusId == 1)
+			{
+				<td style="background-color:lightgreen"> Available</td>
+			}
+			<td>@item.Kind.Name</td>
 			<td>
+				<button class="btn btn-info "> <a style=" text-decoration:none; color:azure; " href="/Book/Edit/@item.Id">  Edit </a> </button>
+			
+			</td>
+			
 			<td>
 			
 				<form asp-action="Delete" asp-controller="Book" method="post">
@@ -39,6 +56,6 @@
 	}
 </table>
 
-<button class="btn btn-dark "><a style="font-style:unset ; color:white" href="/Book/Add"> Add New Book</a></button>
+<button class="btn btn-success "><a style="text-decoration:none; color:azure;" href="/Book/Add"> Add New Book</a></button>
 
 

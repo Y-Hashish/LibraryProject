@@ -10,10 +10,9 @@ namespace LibraryProject.Models
         
         [ForeignKey(nameof(Book))]
         public int BookId { get; set; }
-        
 
         [ForeignKey(nameof(ApplicationUser))]
-        public string UserId { get; set; }
+        public string ApplicationUserId { get; set; }
         [Required]
         public DateTime BorrowingDate { get; set; }
         [Required]
@@ -23,6 +22,8 @@ namespace LibraryProject.Models
 
         public double? PenalityAmount { get; set; }
         public Book? Book{ get; set; }
+
+        public ApplicationUser? ApplicationUser { get; set; }
         
 
 

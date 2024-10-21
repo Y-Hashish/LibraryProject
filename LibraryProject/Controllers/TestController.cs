@@ -7,7 +7,7 @@ using System.Security.Claims;
 
 namespace LibraryProject.Controllers
 {
-    [Authorize(Roles ="admin")]
+    //[Authorize(Roles ="admin")]
     //[Authorize(Roles ="Admin")]
     public class TestController : Controller
     {
