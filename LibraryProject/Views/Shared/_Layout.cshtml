@@ -10,7 +10,7 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-secondary border-bottom box-shadow mb-3">
             <div class="container-fluid">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">LibraryProject</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -20,30 +20,37 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link text-white py-2" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="user" asp-action="history">History</a>
+                            <a class="nav-link text-white py-2" asp-area="" asp-controller="book" asp-action="AllBooks">All Books</a>
                         </li>
+
                         @if(User.Identity.IsAuthenticated == true)
                         {
-                        
-                            
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="test" asp-action="Index">Test</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="signout">SignOut</a>
+                            if (User.IsInRole("admin"))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-white py-2" asp-area="" asp-controller="kind" asp-action="Index">Genre</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-white py-2" asp-area="" asp-controller="Borrow" asp-action="AllBorrowings">Borrowings</a>
+                                </li>
+                            }
+                            <li class="nav-item">
+                                <a class="nav-link text-white py-2" asp-area="" asp-controller="user" asp-action="history">History</a>
+                            </li>
+                            <li class="nav-item">
+                                    <a class="nav-link text-white py-2" asp-area="" asp-controller="Account" asp-action="signout">SignOut</a>
                             </li>
                         }
                         else
                         {
-                            
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
+                                <a class="nav-link text-white py-2" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Register">Register</a>
+                                <a class="nav-link text-white py-2" asp-area="" asp-controller="Account" asp-action="Register">Register</a>
                         </li>
                         }
                     </ul>

@@ -17,6 +17,8 @@ namespace LibraryProject
             builder.Services.AddScoped<IKindrepo, Kindrepo>();
             builder.Services.AddScoped<ITestRepo, TestRepo>();
             builder.Services.AddScoped<IHistoryRepo, HistoryRepo>();
+            builder.Services.AddScoped<IBorrowRepo, BorrowRepo>();
+
             builder.Services.AddDbContext<ApplicationDBContext>(options => options.UseSqlServer(builder.Configuration
                 .GetConnectionString("db")));
             builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>

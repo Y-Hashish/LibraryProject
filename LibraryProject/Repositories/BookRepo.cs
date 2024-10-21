@@ -1,5 +1,6 @@
 ﻿using LibraryProject.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace LibraryProject.Repositories
 {
@@ -13,7 +14,7 @@ namespace LibraryProject.Repositories
         public List<Book> GetAll()
         {
 
-           return dbContext.Books.ToList();
+           return dbContext.Books.Include("Kind").ToList();
         }
         public void Add(Book obj)
         {
@@ -25,7 +26,13 @@ namespace LibraryProject.Repositories
         {
             dbContext.Update(obj);
         }
+		//public void AddBook(int id)
+		//{
+		//	Book book=GetById(id);
+  //          dbContext.Books.Add(book);
 
+
+		//}
 
         public void Delete( int id)
         {
@@ -40,8 +47,13 @@ namespace LibraryProject.Repositories
 
         public List<Book> Search(string name)
         {
-            List<Book> bookAuthor = dbContext.Books.Where(b => b.Author == name).ToList();
+            List<Book> bookAuthor = dbContext.Books.Where(b => b.Author.Contains(name)).Include(b=>b.Kind).ToList();
             return bookAuthor;
+        }
+        public List<Book> SearchTitle(string name)
+        {
+            List<Book> booktitle = dbContext.Books.Where(b => b.Title.Contains(name)).Include(b => b.Kind).ToList();
+            return booktitle;
         }
 
         public void Save()
@@ -49,5 +61,7 @@ namespace LibraryProject.Repositories
             dbContext.SaveChanges();
         }
 
-    }
+	
+		
+	}
 }

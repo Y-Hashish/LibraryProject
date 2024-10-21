@@ -1,5 +1,6 @@
 ﻿using LibraryProject.Models;
 using LibraryProject.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
@@ -22,7 +23,8 @@ namespace LibraryProject.Controllers
 			ViewData["books"] = books;
 			return View("BookView", books);
 		}
-		public IActionResult Add()
+        [Authorize(Roles = "admin")]
+        public IActionResult Add()
 		{
 			return View("AddView");
 		}
@@ -40,8 +42,8 @@ namespace LibraryProject.Controllers
 			
 		;
 		}
-	
-		public IActionResult Edit(int id)
+        [Authorize(Roles = "admin")]
+        public IActionResult Edit(int id)
 		{
 			Book book = bookRepository.GetById(id);
 			return View("EditView" ,book);
@@ -66,7 +68,7 @@ namespace LibraryProject.Controllers
 
 		}
 
-
+        [Authorize(Roles = "admin")]
         //public IActionResult Delete(Book book, int id)
         public async Task<IActionResult> Delete(Book book, int id)
         {
@@ -78,26 +80,26 @@ namespace LibraryProject.Controllers
 
 
 
-		public IActionResult Search(string author)
-		{
+        public IActionResult Search(string author)
+        {
 
             List<Book> bookAuthor = bookRepository.Search(author);
             if (bookAuthor.Any())
             {
-				ViewData["AuthorName"] = $"{author}";
+                ViewData["AuthorName"] = $"{author}";
                 ViewBag.Books = bookAuthor;
-				return View("SearchView",bookAuthor);
+                return View("SearchView", bookAuthor);
             }
-            
-           
-                ViewBag.Message = $"No books found by this author {author}";
-                return View("SearchView", ViewBag.Message);
 
-            
+
+            ViewBag.Message = $"No books found by this author {author}";
+            return View("SearchView", ViewBag.Message);
+
+
             //return View();
 
         }
 
-	}
+    }
 
 }

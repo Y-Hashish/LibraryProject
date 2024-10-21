@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace LibraryProject.Controllers
 {
-    //[Authorize(Roles = "Admin")]
+    [Authorize(Roles = "admin")]
     public class KindController : Controller
     {
         private readonly IKindrepo kindrepo;

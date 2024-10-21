@@ -12,6 +12,8 @@ namespace LibraryProject.Repositories
         public Book GetById(int id);
 
         public List<Book> Search(string name);
+        public List<Book> SearchTitle(string name);
+
 
         public void Save();
 

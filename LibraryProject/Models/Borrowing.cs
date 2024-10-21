@@ -18,7 +18,7 @@ namespace LibraryProject.Models
         [Required]
         public DateTime DueDate { get; set; }
 
-        public DateTime? ActualReturnDate { get; set; }
+        public DateTime ActualReturnDate { get; set; }
 
         public double? PenalityAmount { get; set; }
         public Book? Book{ get; set; }

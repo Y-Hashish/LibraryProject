@@ -4,11 +4,8 @@
     ViewData["Title"] = "Register";
 }
 
-<h1>Register</h1>
 
-<h4>RegisterVM</h4>
-<hr />
-<div class="row">
+@* <div class="row">
     <div class="col-md-4">
         <form asp-action="Register" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -41,6 +38,54 @@
 
 <div>
     <a asp-action="Index">Back to List</a>
+</div> *@
+
+
+<div class="border-0 card shadow my-4">
+    <div class="card-header bg-secondary bg-gradient ml-0 py-3">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h2 class="text-white py-2">Register</h2>
+            </div>
+        </div>
+    </div>
+    <div class="card-body p-4">
+        <form asp-action="Register">
+
+            <div class="mb-3 row p-1">
+                <label class="p-0" asp-for="Username"></label>
+                <input class="form-control" asp-for="Username" />
+                <span class="text-danger" asp-validation-for="Username"></span>
+            </div>
+            <div class="mb-3 row p-1">
+                <label class="p-0" asp-for="Email"></label>
+                <input type="email" class="form-control" asp-for="Email" />
+                <span class="text-danger" asp-validation-for="Email"></span>
+            </div>
+            <div class="mb-3 row p-1">
+                <label class="p-0" asp-for="Password"></label>
+                <input class="form-control" asp-for="Password" />
+                <span class="text-danger" asp-validation-for="Password"></span>
+            </div>
+            <div class="mb-3 row p-1">
+                <label class="p-0" asp-for="ConfirmPassword"></label>
+                <input class="form-control" asp-for="ConfirmPassword" />
+                <span class="text-danger" asp-validation-for="ConfirmPassword"></span>
+            </div>
+            <div class="row">
+                <div class="col-6 col-md-3">
+                    <button type="submit" class="btn btn-primary form-control">Create</button>
+                </div>
+                <div class="col-6 col-md-3">
+                    <a asp-controller="account" asp-action="login" class="btn btn-secondary border form-control">
+                        Go to login page 
+                    </a>
+
+                </div>
+            </div>
+
+        </form>
+    </div>
 </div>
 
 @section Scripts {

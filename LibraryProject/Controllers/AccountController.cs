@@ -41,7 +41,7 @@ namespace LibraryProject.Controllers
                     await userManager.AddToRoleAsync(user, "user");
                     // create cooki
                     await sign.SignInAsync(user, false);
-                    return RedirectToAction("Index", "test");
+                    return RedirectToAction("Allbooks", "Book");
                 }
                 foreach(var item in result.Errors)
                 {
@@ -70,7 +70,7 @@ namespace LibraryProject.Controllers
                         claims.Add(new Claim("email", user.Email));
                         await sign.SignInWithClaimsAsync(user, loginVM.rememberMe,claims);
                         //await sign.SignInAsync(user, loginVM.rememberMe);
-                        return RedirectToAction("index", "test");
+                        return RedirectToAction("AllBooks", "Book");
                     }
                 }
                 ModelState.AddModelError("", "Username or Password is wrong");
